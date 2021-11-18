@@ -14,8 +14,7 @@ class DockingStation
     raise "Sorry no bikes available" if empty?
     @bikes.each_with_index do |bike, i|
       if !bike.broken
-        @bikes.delete_at(i)
-        break
+        return @bikes.delete_at(i)
       end
     end
   end
