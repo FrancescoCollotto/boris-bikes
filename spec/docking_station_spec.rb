@@ -23,7 +23,7 @@ describe DockingStation do
         it "raises an error if DockingStation is full" do
             bike = Bike.new
             dock = DockingStation.new
-            dock.return_bike(bike)
+            20.times { dock.return_bike Bike.new }
             expect { dock.return_bike(bike) }.to raise_error("Dockingstation is full")
         end
         it "add a bike if there is no bikes" do

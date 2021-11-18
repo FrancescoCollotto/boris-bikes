@@ -1,3 +1,5 @@
+require 'bike'
+
 class DockingStation
   attr_reader :bikes
   def initialize
@@ -8,12 +10,12 @@ class DockingStation
     if @bikes.empty?
       raise "Sorry no bikes available"
     else
-      Bike.new
+      @bikes.pop
     end 
   end
 
   def return_bike(bike)
-    if @bikes.count == 0
+    if @bikes.count < 20
       @bikes << bike
     else 
       raise "Dockingstation is full"
@@ -21,10 +23,3 @@ class DockingStation
   end
 
 end
-
-class Bike  
-  def working?
-    true
-  end
-end
-
