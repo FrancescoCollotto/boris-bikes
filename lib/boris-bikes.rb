@@ -1,4 +1,4 @@
-require 'bike'
+require_relative './bike.rb'
 
 class DockingStation
   attr_reader :bikes
@@ -7,19 +7,21 @@ class DockingStation
   end
 
   def release_bike
-    if @bikes.empty?
-      raise "Sorry no bikes available"
-    else
-      @bikes.pop
-    end 
+    raise "Sorry no bikes available" if empty?
+    @bikes.pop 
   end
 
   def return_bike(bike)
-    if @bikes.count < 20
-      @bikes << bike
-    else 
-      raise "Dockingstation is full"
-    end
+    raise "Dockingstation is full" if full?
+    @bikes << bike
   end
 
+  private
+  def full?
+    @bikes.count >= 20
+  end
+
+  def empty?
+    @bikes.empty?
+  end
 end
