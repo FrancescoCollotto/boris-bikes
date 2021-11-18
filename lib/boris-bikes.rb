@@ -12,7 +12,12 @@ class DockingStation
 
   def release_bike
     raise "Sorry no bikes available" if empty?
-    @bikes.pop 
+    @bikes.each_with_index do |bike, i|
+      if !bike.broken
+        @bikes.delete_at(i)
+        break
+      end
+    end
   end
 
   def return_bike(bike)
@@ -31,4 +36,6 @@ class DockingStation
   def empty?
     @bikes.empty?
   end
+
+  
 end
