@@ -1,6 +1,17 @@
 require "boris-bikes"
 
 describe DockingStation do
+    it "has default capacity" do
+        expect(subject.capacity).to eq(DockingStation::DEFAULT_CAPACITY)
+    end
+    it "has variable capacity" do
+        dock = DockingStation.new(50)
+        bike = Bike.new
+        dock.capacity.times { dock.return_bike Bike.new}
+        expect {dock.return_bike(bike) }.to raise_error("Dockingstation is full")
+    end
+    
+    it { expect(DockingStation).to respond_to(:new).with(1).argument }
     it { expect(subject).to respond_to(:release_bike) }
     it { expect(subject).to respond_to(:return_bike).with(1).argument }
     it "return a bike to DockingStation" do
@@ -24,7 +35,7 @@ describe DockingStation do
         it "raises an error if DockingStation is full" do
             bike = Bike.new
             dock = DockingStation.new
-            DockingStation::DEFAULT_CAPACITY.times { dock.return_bike Bike.new }
+            dock.capacity.times { dock.return_bike Bike.new }
             expect { dock.return_bike(bike) }.to raise_error("Dockingstation is full")
         end
         it "add a bike if there is no bikes" do
