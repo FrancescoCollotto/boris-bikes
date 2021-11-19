@@ -42,6 +42,12 @@ describe DockingStation do
             bike = Bike.new
             expect(subject.return_bike(bike)).to be_an_instance_of Array
         end
+        it "return a bike if broken" do
+            bike = Bike.new
+            bike.report_broken
+            subject.return_bike(bike)
+            expect(subject.bikes.include?(bike)).to eq true
+        end
     end
 end
 # it { expect(subject.release_bike).to be_an_instance_of(Bike)}
